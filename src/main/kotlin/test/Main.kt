@@ -8,7 +8,7 @@ import java.util.Arrays
 
 fun main(){
 val post = Post(
-    1,
+    0,
     1,
     12,
     Likes(1),
@@ -21,6 +21,7 @@ val post = Post(
     12
 )
     WallService.add(post)
+
     val post12 = Post(
         post.id,
         1,
@@ -34,6 +35,7 @@ val post = Post(
         true,
         12
     )
+
     println(Arrays.toString(WallService.posts))
     WallService.like(1)
     WallService.comment(1, "Проверка комментария")

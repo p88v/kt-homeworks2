@@ -9,9 +9,15 @@ object WallService {
     var posts = emptyArray<Post>()
     private var id = 0
 
+    fun clear(){
+        posts = emptyArray()
+        id = 0
+    }
+
     fun add(post: Post): Post {
         posts += post
-        post.id = id++
+        id++
+        post.id = id
         return posts.last()
     }
 

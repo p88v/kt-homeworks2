@@ -5,7 +5,7 @@ import data.Comments
 
 
 data class Post(
-    val id: Int,
+    var id: Int = 0,
     val ownerId: Int,
     val date: Int,
     val likes: Likes,

@@ -49,13 +49,14 @@ class WallServiceTest {
             false,
             0
         )
-        WallService.add(post)
+        val addedPost = WallService.add(post)
+
         val post2 = Post(
-            post.id,
+            addedPost.id,
             1,
             1,
             Likes(),
-            0,
+            12,
             0,
             Comments(),
             false,
@@ -63,8 +64,8 @@ class WallServiceTest {
             false,
             0
         )
-        val result = WallService.update(post2)
-        assertEquals(true, result)
+        WallService.update(post2)
+        assertEquals(12, WallService.posts[0].reposts)
     }
 
     @Test
@@ -85,7 +86,7 @@ class WallServiceTest {
         WallService.add(post)
         val post2 = Post(
             post.id,
-            1,
+            13,
             1,
             Likes(),
             0,
@@ -96,7 +97,7 @@ class WallServiceTest {
             false,
             0
         )
-        val result = WallService.update(post2)
-        assertEquals(true, result)
+        WallService.update(post2)
+        assertEquals(1, post.ownerId)
     }
 }

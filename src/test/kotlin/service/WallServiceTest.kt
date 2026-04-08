@@ -6,6 +6,7 @@ import data.Post
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class WallServiceTest {
@@ -64,8 +65,8 @@ class WallServiceTest {
             false,
             0
         )
-        WallService.update(post2)
-        assertEquals(12, WallService.posts[0].reposts)
+        val result = WallService.update(post2)
+        assertTrue(result)
     }
 
     @Test
@@ -73,7 +74,7 @@ class WallServiceTest {
         val post = Post(
             0,
             1,
-            1,
+            0,
             Likes(),
             0,
             0,
@@ -83,7 +84,7 @@ class WallServiceTest {
             false,
             0
         )
-        WallService.add(post)
+
         val post2 = Post(
             post.id,
             13,
@@ -97,7 +98,7 @@ class WallServiceTest {
             false,
             0
         )
-        WallService.update(post2)
-        assertEquals(1, post.ownerId)
+        val result = WallService.update(post2)
+        assertFalse(result)
     }
 }

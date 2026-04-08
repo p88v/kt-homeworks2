@@ -13,7 +13,7 @@ data class Post(
     val replyOwnerId: Int,
     val comments: Comments,
     val isFavorite: Boolean,
-    val onlyForFriends: Boolean,
-    val isPinned: Boolean,
+    val onlyForFriends: Boolean?,
+    val isPinned: Boolean?,
     val commentsOwnerId: Int,
 )

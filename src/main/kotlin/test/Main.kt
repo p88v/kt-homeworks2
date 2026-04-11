@@ -30,8 +30,8 @@ fun main() {
         commentsOwnerId = 12,
         attachment = mutList,
     )
-    WallService.add(post)
-    
+    println(WallService.add(post))
+
     val post12 = Post(
         post.id,
         1,
@@ -52,5 +52,5 @@ fun main() {
     WallService.comment(1, "Проверка комментария")
     println(Arrays.toString(WallService.posts))
     println(WallService.update(post12))
-    println(post)
+
 }

@@ -1,5 +1,6 @@
 package data
 
+import abstractclass.Attachment
 import data.Likes
 import data.Comments
 
@@ -16,4 +17,5 @@ data class Post(
     val onlyForFriends: Boolean?,
     val isPinned: Boolean?,
     val commentsOwnerId: Int,
+    val attachment: List<Attachment>,
 )

@@ -3,6 +3,8 @@ package test
 import abstractclass.Attachment
 import abstractclass.File
 import abstractclass.FileAttachment
+import abstractclass.Link
+import abstractclass.LinkAttachment
 import data.Comments
 import data.Likes
 import data.Post
@@ -11,10 +13,14 @@ import java.util.Arrays
 
 fun main() {
 
-    var mutList = mutableListOf<Attachment>()
+
     val file = File(1, 12, "Title", 12)
     val fileAttach = FileAttachment(file)
-    mutList.add(fileAttach)
+
+    val link = Link("url", "link","sd","about link")
+    val linkAttach = LinkAttachment(link)
+    var mutList = mutableListOf<Attachment>(fileAttach, linkAttach)
+
 
     val post = Post(
         0,

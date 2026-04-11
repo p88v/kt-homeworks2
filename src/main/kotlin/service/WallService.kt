@@ -8,6 +8,7 @@ object WallService {
 
     var posts = emptyArray<Post>()
     private var id = 0
+    private var flag = false
 
     fun clear(){
         posts = emptyArray()
@@ -16,13 +17,10 @@ object WallService {
 
     fun add(post: Post): Post {
         posts += post.copy(id = ++id, likes = post.likes.copy(), comments = post.comments.copy())
-        postid(post)
         return posts.last()
+        flag = true
     }
 
-    fun postid(post: Post){
-        post.id = id
-    }
 
     fun update(postss: Post): Boolean {
         for ((index, post) in posts.withIndex()) {

@@ -1,10 +1,15 @@
 package service
 
+import abstractclass.Attachment
+import abstractclass.File
+import abstractclass.FileAttachment
 import data.Comments
 import data.Likes
 import data.Post
 import org.junit.Before
 import org.junit.Test
+import java.nio.file.Files
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -17,6 +22,11 @@ class WallServiceTest {
 
     @Test
     fun add() {
+
+        val file = File(1, 12, "file", 123)
+        val fileAttach = FileAttachment(file)
+        val mutList = mutableListOf<Attachment>(fileAttach)
+
         val post = Post(
             0,
             1,
@@ -28,10 +38,11 @@ class WallServiceTest {
             false,
             false,
             false,
-            0
+            0,
+            attachment = mutList
         )
-        WallService.add(post)
-        assertTrue(post.id != 0)
+        val result = WallService.add(post)
+        assertEquals(result, post)
     }
 
     @Test
@@ -47,7 +58,8 @@ class WallServiceTest {
             false,
             false,
             false,
-            0
+            0,
+            attachment = emptyList()
         )
         val addedPost = WallService.add(post)
 
@@ -62,7 +74,8 @@ class WallServiceTest {
             false,
             false,
             false,
-            0
+            0,
+            attachment = emptyList()
         )
         val result = WallService.update(post2)
         assertTrue(result)
@@ -81,7 +94,8 @@ class WallServiceTest {
             false,
             false,
             false,
-            0
+            0,
+            attachment = emptyList()
         )
 
         val post2 = Post(
@@ -95,7 +109,8 @@ class WallServiceTest {
             false,
             false,
             false,
-            0
+            0,
+            attachment = emptyList()
         )
         val result = WallService.update(post2)
         assertFalse(result)

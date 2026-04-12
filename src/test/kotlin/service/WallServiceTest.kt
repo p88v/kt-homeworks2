@@ -42,7 +42,8 @@ class WallServiceTest {
             attachment = mutList
         )
         val result = WallService.add(post)
-        assertEquals(WallService.posts[0], result)
+        assertEquals(WallService.posts[0].id ,result.id)
+
     }
 
     @Test

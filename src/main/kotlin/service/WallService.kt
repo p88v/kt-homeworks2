@@ -3,14 +3,20 @@ package service
 import data.Comments
 import data.Likes
 import data.Post
+import exepthion.PostNotFoundException
+import service.WallService.comments
+import service.WallService.posts
 
 object WallService {
 
-    var posts = emptyArray<Post>()
+   var posts = emptyArray<Post>()
+    var comments = emptyArray<Comments>()
+
     private var id = 0
     private var flag = false
 
-    fun clear(){
+
+    fun clear() {
         posts = emptyArray()
         id = 0
     }
@@ -47,4 +53,18 @@ object WallService {
             }
         }
     }
+
+    fun createComment(postId: Int, comment: Comments): Comments {
+
+        for ((index, post) in posts.withIndex()) {
+            if (postId == post.id) {
+                comments += comment.copy()
+                return comments.last()
+            } else{
+                throw PostNotFoundException("Пост с таким (id: $postId) отсутствует.")
+            }
+        }
+        return throw PostNotFoundException(":(")
+    }
+
 }

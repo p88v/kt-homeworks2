@@ -6,9 +6,9 @@ import abstractclass.FileAttachment
 import data.Comments
 import data.Likes
 import data.Post
+import exepthion.PostNotFoundException
 import org.junit.Before
 import org.junit.Test
-import java.nio.file.Files
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -115,5 +115,54 @@ class WallServiceTest {
         )
         val result = WallService.update(post2)
         assertFalse(result)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun shouldTrow(){
+        val service = WallService
+        val post = Post(
+            0,
+            1,
+            0,
+            Likes(),
+            0,
+            0,
+            Comments(),
+            false,
+            false,
+            false,
+            0,
+            attachment = emptyList()
+        )
+        service.add(post)
+
+        val commet = Comments("Тест прошел")
+
+        service.createComment(124,commet)
+    }
+
+    @Test
+    fun NotThrow(){
+        val service = WallService
+        val post = Post(
+            0,
+            1,
+            0,
+            Likes(),
+            0,
+            0,
+            Comments(),
+            false,
+            false,
+            false,
+            0,
+            attachment = emptyList()
+        )
+        service.add(post)
+
+        val commet = Comments("Тест прошел")
+
+        val result = service.createComment(1,commet)
+        assertEquals(service.comments.last(), result)
     }
 }

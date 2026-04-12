@@ -37,26 +37,17 @@ fun main() {
         attachment = mutList,
     )
     println(WallService.add(post))
+    println(WallService.posts.last().id)
 
-    val post12 = Post(
-        post.id,
-        1,
-        12,
-        Likes(1),
-        123123,
-        12312,
-        Comments(),
-        true,
-        false,
-        true,
-        12,
-        attachment = mutList,
-    )
 
-    println(Arrays.toString(WallService.posts))
-    WallService.like(1)
-    WallService.comment(1, "Проверка комментария")
-    println(Arrays.toString(WallService.posts))
-    println(WallService.update(post12))
+    WallService.comment(WallService.posts.last().id, "Проверка комментария")
+
+    println("-----------------------")
+
+    println(Arrays.deepToString(WallService.comments))
+
+    println("-----------------------")
+
+    println(WallService.reportComments(WallService.posts.last().id, 2))
 
 }

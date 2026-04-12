@@ -9,12 +9,12 @@ import service.WallService.posts
 
 object WallService {
 
-   var posts = emptyArray<Post>()
+    var posts = emptyArray<Post>()
     var comments = emptyArray<Comments>()
+    var reports = emptyArray<Comments>()
 
     private var id = 0
     private var flag = false
-
 
     fun clear() {
         posts = emptyArray()
@@ -49,7 +49,7 @@ object WallService {
     fun comment(id: Int, text: String) {
         for ((index, post) in posts.withIndex()) {
             if (post.id == id) {
-                posts[index] = post.copy(comments = Comments(text))
+               comments += Comments(text, id)
             }
         }
     }
@@ -60,11 +60,43 @@ object WallService {
             if (postId == post.id) {
                 comments += comment.copy()
                 return comments.last()
-            } else{
+            } else {
                 throw PostNotFoundException("Пост с таким (id: $postId) отсутствует.")
             }
         }
         return throw PostNotFoundException(":(")
     }
 
+    fun reportComments(commentId: Int, reason: Int): Comments?{
+        when(commentId){
+            0 -> setStatus(Reason.SPAM)
+            1 -> setStatus(Reason.CP)
+            2 -> setStatus(Reason.EXTREMISM)
+            3 -> setStatus(Reason.VIOLENCE)
+        }
+        for((idnex, coment) in comments.withIndex()){
+
+            if(coment.id == commentId){
+                reports += coment
+                return reports.last()
+            }
+
+        }
+        return null
+    }
+
+}
+enum class Reason{
+    SPAM,
+    CP,
+    EXTREMISM,
+    VIOLENCE,
+}
+fun setStatus(reason: Reason){
+    when(reason){
+        Reason.SPAM -> println("Вы пожаловались на спам")
+        Reason.CP -> println("Вы пожаловались на cp")
+        Reason.EXTREMISM -> println("Вы пожаловались на экстремизм")
+        Reason.VIOLENCE -> println("Вы пожаловались на насилие")
+    }
 }

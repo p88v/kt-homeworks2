@@ -15,7 +15,7 @@ object WallService {
 
     private var id = 0
     private var flag = false
-    private var flagOfGoodIssue = false
+
 
     fun clear() {
         posts = emptyArray()
@@ -50,33 +50,34 @@ object WallService {
     fun comment(id: Int, text: String) {
         for ((index, post) in posts.withIndex()) {
             if (post.id == id) {
-               comments += Comments(text, id)
+                comments += Comments(text, id)
             }
         }
     }
 
     fun createComment(postId: Int, comment: Comments) {
+        var flagOfGoodIssue = false
         for ((index, post) in posts.withIndex()) {
             if (postId == post.id) {
                 comments += comment.copy()
                 flagOfGoodIssue = true
             }
         }
-        if(flagOfGoodIssue == false){
+        if (flagOfGoodIssue == false) {
             throw PostNotFoundException("Пост не найден")
         }
     }
 
-    fun reportComments(commentId: Int, reason: Int): Comments?{
-        when(commentId){
+    fun reportComments(commentId: Int, reason: Int): Comments? {
+        when (commentId) {
             0 -> setStatus(Reason.SPAM)
             1 -> setStatus(Reason.CP)
             2 -> setStatus(Reason.EXTREMISM)
             3 -> setStatus(Reason.VIOLENCE)
         }
-        for((idnex, coment) in comments.withIndex()){
+        for ((idnex, coment) in comments.withIndex()) {
 
-            if(coment.id == commentId){
+            if (coment.id == commentId) {
                 reports += coment
                 return reports.last()
             }
@@ -86,14 +87,16 @@ object WallService {
     }
 
 }
-enum class Reason{
+
+enum class Reason {
     SPAM,
     CP,
     EXTREMISM,
     VIOLENCE,
 }
-fun setStatus(reason: Reason){
-    when(reason){
+
+fun setStatus(reason: Reason) {
+    when (reason) {
         Reason.SPAM -> println("Вы пожаловались на спам")
         Reason.CP -> println("Вы пожаловались на cp")
         Reason.EXTREMISM -> println("Вы пожаловались на экстремизм")

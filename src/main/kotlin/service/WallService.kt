@@ -15,6 +15,7 @@ object WallService {
 
     private var id = 0
     private var flag = false
+    private var flagOfGoodIssue = false
 
     fun clear() {
         posts = emptyArray()
@@ -54,17 +55,16 @@ object WallService {
         }
     }
 
-    fun createComment(postId: Int, comment: Comments): Comments {
-
+    fun createComment(postId: Int, comment: Comments) {
         for ((index, post) in posts.withIndex()) {
             if (postId == post.id) {
                 comments += comment.copy()
-                return comments.last()
-            } else {
-                throw PostNotFoundException("Пост с таким (id: $postId) отсутствует.")
+                flagOfGoodIssue = true
             }
         }
-        return throw PostNotFoundException(":(")
+        if(flagOfGoodIssue == false){
+            throw PostNotFoundException("Пост не найден")
+        }
     }
 
     fun reportComments(commentId: Int, reason: Int): Comments?{
